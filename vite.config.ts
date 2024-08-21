@@ -15,6 +15,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import markdown from 'vite-plugin-vue-markdown';
 import svgLoader from 'vite-svg-loader';
 import { configDefaults } from 'vitest/config';
+import { codeInspectorPlugin } from 'code-inspector-plugin';
 
 const baseUrl = process.env.BASE_URL ?? '/';
 
@@ -27,9 +28,7 @@ export default defineConfig({
       compositionOnly: true,
       fullInstall: true,
       strictMessage: false,
-      include: [
-        resolve(__dirname, 'locales/**'),
-      ],
+      include: [resolve(__dirname, 'locales/**')],
     }),
     AutoImport({
       imports: [
@@ -97,6 +96,9 @@ export default defineConfig({
       resolvers: [NaiveUiResolver(), IconsResolver({ prefix: 'icon' })],
     }),
     Unocss(),
+    codeInspectorPlugin({
+      bundler: 'vite',
+    }),
   ],
   base: baseUrl,
   resolve: {
